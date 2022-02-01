@@ -1,3 +1,24 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  root to: 'pages#index'
+  mount Rswag::Ui::Engine => '/api-docs'
+  mount Rswag::Api::Engine => '/api-docs'
+  namespace :api do
+    namespace :v1 do
+      # authentication routes
+      post :signin, to: 'auth#signin'
+      post :signup, to: 'auth#signup'
+      post :signout, to: 'auth#signout' 
+      
+      # chefs
+      resources :chefs
+      post "delete_chef", to: "chefs#delete_chef"
+
+      # reservations
+      get "reservations/:user_id", to: "reservations#index"
+      resources :reservations, only: [:create, :destroy]
+
+      # cities
+      resources :cities
+    end
+  end
 end
