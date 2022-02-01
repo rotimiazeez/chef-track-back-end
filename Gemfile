@@ -35,8 +35,8 @@ group :development, :test do
   gem 'rswag-specs'
 end
 
-group :development do
-end
+# group :development do
+# end
 
 gem 'email_validator'
 
